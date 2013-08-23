@@ -13,9 +13,6 @@ GEM
       axiom-types (~> 0.0.3)
       descendants_tracker (~> 0.0.1)
       equalizer (~> 0.0.7)
-    axiom-memory-adapter (0.0.2)
-      axiom (~> 0.1.1)
-      thread_safe (~> 0.1.0)
     axiom-optimizer (0.1.0)
       axiom (~> 0.1.0)
     axiom-types (0.0.3)
@@ -27,6 +24,10 @@ GEM
     descendants_tracker (0.0.1)
     equalizer (0.0.7)
     ice_nine (0.9.0)
+    rom (0.1.0)
+      rom-mapper (~> 0.1.0)
+      rom-relation (~> 0.1.0)
+      rom-session (~> 0.1.0)
     rom-mapper (0.1.0)
       abstract_type (~> 0.0.6)
       adamantium (~> 0.1)
@@ -54,7 +55,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  axiom-memory-adapter
-  rom-mapper (~> 0.1.0)
-  rom-relation (~> 0.1.0)
-  rom-session (~> 0.1.0)
+  rom (~> 0.1.0)
