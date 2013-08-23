@@ -13,13 +13,14 @@ rom.schema do
   base_relation :repos do
     repository :github_rom_repos
 
-    attribute :id,   Integer
-    attribute :name, String
+    attribute :id,       Integer
+    attribute :name,     String
+    attribute :watchers, Integer
   end
 end
 
 class Repo
-  attr_accessor :id, :name
+  attr_accessor :id, :name, :stars
 end
 
 rom.mapping do
@@ -27,7 +28,12 @@ rom.mapping do
     model Repo
 
     map :id, :name
+    map :watchers, to: :stars
   end
 end
 
-puts rom[:repos].to_a.inspect
+repos = rom[:repos].sort_by(:stars).restrict { |r| r.stars.gt(10) }
+
+repos.each do |repo|
+  puts "name #{repo.name} with #{repo.stars} stars"
+end
