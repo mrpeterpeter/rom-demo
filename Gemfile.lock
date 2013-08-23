@@ -10,6 +10,20 @@ GIT
       equalizer (~> 0.0.7)
 
 GIT
+  remote: https://github.com/rom-rb/rom-relation.git
+  revision: a2d596e7740508cbd0895f3ed36c90bb1cfcbc85
+  specs:
+    rom-relation (0.0.1)
+      abstract_type (~> 0.0.6)
+      adamantium (~> 0.1)
+      addressable (~> 2.3, >= 2.3.3)
+      axiom (~> 0.1.1)
+      axiom-optimizer (~> 0.1.0)
+      concord (~> 0.1.4)
+      descendants_tracker (~> 0.0.1)
+      equalizer (~> 0.0.7)
+
+GIT
   remote: https://github.com/rom-rb/rom-session.git
   revision: 262091552e1513e3d50bc9b61b35dfdc357aae97
   specs:
@@ -17,19 +31,6 @@ GIT
       abstract_type (~> 0.0.6)
       adamantium (~> 0.1)
       concord (~> 0.1.4)
-      equalizer (~> 0.0.7)
-
-PATH
-  remote: ../rom/rom-relation
-  specs:
-    rom-relation (0.0.1)
-      abstract_type (~> 0.0.5)
-      adamantium (~> 0.1)
-      addressable (~> 2.3, >= 2.3.3)
-      axiom (~> 0.1.1)
-      axiom-optimizer (~> 0.1.0)
-      concord (~> 0.1)
-      descendants_tracker (~> 0.0.1)
       equalizer (~> 0.0.7)
 
 GEM
