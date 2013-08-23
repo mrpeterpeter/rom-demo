@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rom-relation', git: 'https://github.com/rom-rb/rom-relation.git'
-gem 'rom-mapper',   git: 'https://github.com/rom-rb/rom-mapper.git'
-gem 'rom-session',  git: 'https://github.com/rom-rb/rom-session.git'
+gem 'rom-relation', '~> 0.1.0'
+gem 'rom-mapper',   '~> 0.1.0'
+gem 'rom-session',  '~> 0.1.0'
 
 gem 'axiom-memory-adapter'
