@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'json'
-require 'ostruct'
 
 require 'rom-relation'
 require 'rom-mapper'
