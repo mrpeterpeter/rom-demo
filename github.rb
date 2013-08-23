@@ -31,7 +31,7 @@ rom.mapping do
   end
 end
 
-repos = rom[:repos].sort_by(:stars).restrict { |r| r.stars.gt(10) }
+repos = rom[:repos].restrict { |r| r.stars.gt(10) }.sort_by(:stars)
 
 repos.each do |repo|
   puts "name #{repo.name} with #{repo.stars} stars"
