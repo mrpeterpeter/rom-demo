@@ -6,7 +6,7 @@ require 'rom-mapper'
 
 require './lib/github_gateway'
 
-rom = ROM::Environment.coerce(github_rom_repos: 'github://orgs/rom-rb/repos')
+rom = ROM::Environment.setup(github_rom_repos: 'github://orgs/rom-rb/repos')
 
 rom.schema do
   base_relation :repos do
