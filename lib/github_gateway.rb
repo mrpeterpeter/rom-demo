@@ -1,5 +1,4 @@
 require 'rom/support/axiom/adapter'
-require 'rom/support/axiom/adapter/memory'
 
 module Axiom
   module Adapter
