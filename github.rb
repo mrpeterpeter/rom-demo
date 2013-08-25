@@ -4,7 +4,7 @@ require 'json'
 require 'rom-relation'
 require 'rom-mapper'
 
-require './lib/github_gateway'
+require './lib/github_adapter'
 
 rom = ROM::Environment.setup(github_rom_repos: 'github://orgs/rom-rb/repos')
 
