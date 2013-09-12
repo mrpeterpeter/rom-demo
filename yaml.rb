@@ -31,15 +31,26 @@ rom.mapping do
   end
 end
 
-rom[:users].insert(User.new(id: 1, name: 'Jane'))
-rom[:users].insert(User.new(id: 2, name: 'John'))
+users = rom[:users]
 
-jane = rom[:users].restrict(name: 'Jane').sort_by(:name).one
+users.insert(User.new(id: 1, name: 'Jane'))
+users.insert(User.new(id: 2, name: 'John'))
+
+jane = users.restrict(name: 'Jane').sort_by(:name).one
 
 puts "id #{jane.id} name #{jane.name}"
 
+rom.session do |session|
+  jane = session[:users].restrict(name: 'Jane').sort_by(:name).one
+  jane.name = 'Jane Doe'
+
+  session[:users].save(jane)
+
+  session.flush
+end
+
 john = User.new(id: 2, name: 'John')
 
-rom[:users].delete(john)
+users.delete(john)
 
-puts "user names: #{rom[:users].map(&:name).inspect}"
+puts "user names: #{users.map(&:name).inspect}"
