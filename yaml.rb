@@ -1,8 +1,11 @@
 require 'rom'
+require 'fileutils'
 
 require './lib/yaml_adapter'
 
-rom = ROM::Environment.setup(yaml: 'yaml://tmp/sample.yml')
+FileUtils.rm('db/sample.yml')
+
+rom = ROM::Environment.setup(yaml: 'yaml://db/sample.yml')
 
 rom.schema do
   base_relation :users do
@@ -15,6 +18,10 @@ end
 
 class User
   attr_accessor :id, :name
+
+  def initialize(attributes)
+    attributes.each { |name, value| send("#{name}=", value) }
+  end
 end
 
 rom.mapping do
@@ -23,6 +30,9 @@ rom.mapping do
     map :id, :name
   end
 end
+
+rom[:users].insert(User.new(id: 1, name: 'Jane'))
+rom[:users].insert(User.new(id: 2, name: 'John'))
 
 jane = rom[:users].restrict(name: 'Jane').sort_by(:name).one
 

@@ -10,8 +10,9 @@ module Axiom
       uri_scheme :yaml
 
       def initialize(uri)
-        @data   = YAML.load_file("#{uri.host}#{uri.path}")
+        @path   = "#{uri.host}#{uri.path}"
         @schema = {}
+        reload
       end
 
       def [](name)
@@ -25,6 +26,29 @@ module Axiom
       def read(relation)
         attributes = relation.header.map(&:name)
         @data[relation.name].map { |hash| hash.values_at(*attributes) }
+      end
+
+      def insert(relation, tuples)
+        @data[relation.name] ||= []
+        tuples.each do |tuple|
+          @data[relation.name] << attributes(relation.header, tuple)
+        end
+        write
+        reload
+      end
+
+      private
+
+      def attributes(header, tuple)
+        Hash[header.map(&:name).zip(tuple)]
+      end
+
+      def write
+        File.open(@path, 'w') { |f| f << YAML.dump(@data) }
+      end
+
+      def reload
+        @data = File.exist?(@path) ? YAML.load_file(@path) : {}
       end
     end
 
@@ -40,6 +64,11 @@ module Axiom
 
       def each(&block)
         tuples.each(&block)
+      end
+
+      def insert(tuples)
+        adapter.insert(relation, tuples)
+        self
       end
 
       private
