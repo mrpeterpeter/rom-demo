@@ -3,7 +3,7 @@ require 'fileutils'
 
 require './lib/yaml_adapter'
 
-FileUtils.rm('db/sample.yml')
+FileUtils.rm('db/sample.yml') if File.exist?('db/sample.yml')
 
 rom = ROM::Environment.setup(yaml: 'yaml://db/sample.yml')
 
@@ -37,3 +37,9 @@ rom[:users].insert(User.new(id: 2, name: 'John'))
 jane = rom[:users].restrict(name: 'Jane').sort_by(:name).one
 
 puts "id #{jane.id} name #{jane.name}"
+
+john = User.new(id: 2, name: 'John')
+
+rom[:users].delete(john)
+
+puts "user names: #{rom[:users].map(&:name).inspect}"

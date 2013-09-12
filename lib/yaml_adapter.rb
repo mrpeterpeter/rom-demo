@@ -37,6 +37,14 @@ module Axiom
         reload
       end
 
+      def delete(relation, tuples)
+        tuples.each do |tuple|
+          @data[relation.name].delete(attributes(relation.header, tuple))
+        end
+        write
+        reload
+      end
+
       private
 
       def attributes(header, tuple)
@@ -68,6 +76,11 @@ module Axiom
 
       def insert(tuples)
         adapter.insert(relation, tuples)
+        self
+      end
+
+      def delete(tuple)
+        adapter.delete(relation, tuple)
         self
       end
 
