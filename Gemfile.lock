@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:rom-rb/rom.git
-  revision: 97d5020d09badfccef1283364d4ff447032f0ee6
+  revision: 657e7ffe71f6030069201678a768915dc2a982b5
   branch: master
   specs:
     rom (0.2.0)
