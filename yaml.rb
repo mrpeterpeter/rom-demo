@@ -1,20 +1,10 @@
+require 'ostruct'
 require 'rom'
 require 'fileutils'
 
 require './lib/yaml_adapter'
 
 FileUtils.rm('db/sample.yml') if File.exist?('db/sample.yml')
-
-rom = ROM::Environment.setup(yaml: 'yaml://db/sample.yml')
-
-rom.schema do
-  base_relation :users do
-    repository :yaml
-
-    attribute :id,   Integer
-    attribute :name, String
-  end
-end
 
 class User
   attr_accessor :id, :name
@@ -24,10 +14,23 @@ class User
   end
 end
 
-rom.mapping do
-  users do
-    model User
-    map :id, :name
+rom = ROM::Environment.setup(yaml: 'yaml://db/sample.yml') do
+  schema do
+    base_relation :users do
+      repository :yaml
+
+      attribute :id,   Integer
+      attribute :name, String
+
+      key :id
+    end
+  end
+
+  mapping do
+    relation :users do
+      model User
+      map :id, :name
+    end
   end
 end
 

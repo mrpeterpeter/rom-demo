@@ -1,37 +1,38 @@
 require 'open-uri'
 require 'json'
 
-require 'rom-relation'
-require 'rom-mapper'
+require 'ostruct'
+require 'rom'
 
 require './lib/github_adapter'
-
-rom = ROM::Environment.setup(github_rom_repos: 'github://orgs/rom-rb/repos')
-
-rom.schema do
-  base_relation :repos do
-    repository :github_rom_repos
-
-    attribute :id,       Integer
-    attribute :name,     String
-    attribute :watchers, Integer
-  end
-end
 
 class Repo
   attr_accessor :id, :name, :stars
 end
 
-rom.mapping do
-  repos do
-    model Repo
+rom = ROM::Environment.setup(github_rom_repos: 'github://orgs/rom-rb/repos') do
+  schema do
+    base_relation :repos do
+      repository :github_rom_repos
 
-    map :id, :name
-    map :watchers, to: :stars
+      attribute :id,       Integer
+      attribute :name,     String
+      attribute :watchers, Integer
+    end
   end
+
+  mapping do
+    relation :repos do
+      model Repo
+
+      map :id, :name
+      map :stars, from: :watchers
+    end
+  end
+
 end
 
-repos = rom[:repos].restrict { |r| r.stars.gt(10) }.sort_by(:stars)
+repos = rom[:repos].restrict { |r| r.watchers.gt(10) }.sort_by(:watchers)
 
 repos.each do |repo|
   puts "name #{repo.name} with #{repo.stars} stars"

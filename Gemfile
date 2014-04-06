@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'rom', '~> 0.1.0'
+gem 'rom', '~> 0.2', git: 'git@github.com:rom-rb/rom.git', branch: 'master'
+gem 'axiom', '~> 0.2'
