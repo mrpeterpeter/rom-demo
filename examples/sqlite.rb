@@ -1,8 +1,6 @@
 require Pathname(__FILE__).expand_path.join('../../lib/db_setup')
 
-require 'ostruct'
 require 'rom'
-require 'rom/support/axiom/adapter/sqlite3'
 
 class Application
   include Equalizer.new :id, :name, :slot

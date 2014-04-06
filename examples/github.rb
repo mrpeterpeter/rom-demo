@@ -1,7 +1,6 @@
 require 'open-uri'
 require 'json'
 
-require 'ostruct'
 require 'rom'
 
 require './lib/github_adapter'
