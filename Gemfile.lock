@@ -31,7 +31,13 @@ GEM
       axiom-types (~> 0.1.0)
       descendants_tracker (~> 0.0.3)
       equalizer (~> 0.0.9)
+    axiom-do-adapter (0.2.0)
+      axiom (~> 0.2.0)
+      axiom-sql-generator (~> 0.2.0)
+      data_objects (~> 0.10.13)
     axiom-optimizer (0.2.0)
+      axiom (~> 0.2.0)
+    axiom-sql-generator (0.2.0)
       axiom (~> 0.2.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -41,8 +47,12 @@ GEM
     concord (0.1.4)
       adamantium (~> 0.1)
       equalizer (~> 0.0.7)
+    data_objects (0.10.14)
+      addressable (~> 2.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    do_sqlite3 (0.10.14)
+      data_objects (= 0.10.14)
     equalizer (0.0.9)
     ice_nine (0.11.0)
     memoizable (0.4.2)
@@ -64,4 +74,6 @@ PLATFORMS
 
 DEPENDENCIES
   axiom (~> 0.2)
+  axiom-do-adapter (~> 0.2)
+  do_sqlite3
   rom (~> 0.2)!
