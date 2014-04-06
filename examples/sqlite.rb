@@ -5,9 +5,9 @@ require 'rom'
 require 'rom/support/axiom/adapter/sqlite3'
 
 class Application
-  include Equalizer.new :id, :name
+  include Equalizer.new :id, :name, :slot
 
-  attr_accessor :id, :name
+  attr_accessor :id, :name, :slot
 end
 
 class Slot
@@ -43,6 +43,7 @@ rom = ROM::Environment.setup(sqlite: "sqlite3://#{ROOT}/db/sqlite.db") do
       model Application
 
       map :id, from: :application_id
+      map :slot_id
       map :name, from: :application_name
     end
 
@@ -58,8 +59,16 @@ end
 slots = rom[:slots]
 applications = rom[:applications]
 
+# load "slot has-many applications" aggregate
 puts slots.
   join(applications).
-  group(:applications => applications.project([:application_id, :application_name])).
+  group(applications: applications).
   project([:slot_id, :slot_name, :applications]).
+  to_a.inspect
+
+# load "application belongs-to application" aggregate
+puts applications.
+  join(slots).
+  wrap(:slot => slots).
+  project([:application_id, :application_name, :slot]).
   to_a.inspect
