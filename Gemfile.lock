@@ -1,17 +1,3 @@
-GIT
-  remote: git@github.com:rom-rb/rom.git
-  revision: 657e7ffe71f6030069201678a768915dc2a982b5
-  branch: master
-  specs:
-    rom (0.2.0)
-      adamantium (~> 0.2)
-      addressable (~> 2.3, >= 2.3.3)
-      axiom (~> 0.2)
-      axiom-optimizer (~> 0.2)
-      charlatan (~> 0.1)
-      concord (~> 0.1)
-      morpher (~> 0.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -24,56 +10,38 @@ GEM
       abstract_type (~> 0.0.7)
       adamantium (~> 0.1)
       equalizer (~> 0.0.8)
-    ast (1.1.0)
-    axiom (0.2.0)
-      abstract_type (~> 0.0.7)
-      adamantium (~> 0.2.0)
-      axiom-types (~> 0.1.0)
-      descendants_tracker (~> 0.0.3)
-      equalizer (~> 0.0.9)
-    axiom-do-adapter (0.2.0)
-      axiom (~> 0.2.0)
-      axiom-sql-generator (~> 0.2.0)
-      data_objects (~> 0.10.13)
-    axiom-optimizer (0.2.0)
-      axiom (~> 0.2.0)
-    axiom-sql-generator (0.2.0)
-      axiom (~> 0.2.0)
-    axiom-types (0.1.1)
-      descendants_tracker (~> 0.0.4)
-      ice_nine (~> 0.11.0)
-      thread_safe (~> 0.3, >= 0.3.1)
     charlatan (0.1.0)
-    concord (0.1.4)
-      adamantium (~> 0.1)
-      equalizer (~> 0.0.7)
-    data_objects (0.10.14)
-      addressable (~> 2.1)
-    descendants_tracker (0.0.4)
-      thread_safe (~> 0.3, >= 0.3.1)
-    do_sqlite3 (0.10.14)
-      data_objects (= 0.10.14)
+    concord (0.1.5)
+      adamantium (~> 0.2.0)
+      equalizer (~> 0.0.9)
     equalizer (0.0.9)
-    ice_nine (0.11.0)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    ice_nine (0.11.1)
+    inflecto (0.0.2)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
-    morpher (0.2.1)
-      abstract_type (~> 0.0.7)
-      adamantium (~> 0.2.0)
-      anima (~> 0.2.0)
-      ast (~> 1.1.0)
-      concord (~> 0.1.4)
-      equalizer (~> 0.0.9)
-      ice_nine (~> 0.11.0)
-      procto (~> 0.0.2)
-    procto (0.0.2)
-    thread_safe (0.3.2)
+    multipart-post (2.0.0)
+    rom (0.4.0)
+      addressable (~> 2.3)
+      charlatan (~> 0.1, >= 0.1)
+      concord (~> 0.1, >= 0.1.4)
+      equalizer (~> 0.0, >= 0.0.9)
+      inflecto (~> 0.0, >= 0.0.2)
+    rom-sql (0.2.0)
+      equalizer (~> 0.0, >= 0.0.9)
+      rom (~> 0.4, >= 0.4.0)
+      sequel (~> 4.17)
+    sequel (4.17.0)
+    sqlite3 (1.3.10)
+    thread_safe (0.3.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  axiom (~> 0.2)
-  axiom-do-adapter (~> 0.2)
-  do_sqlite3
-  rom (~> 0.2)!
+  anima
+  faraday
+  rom
+  rom-sql
+  sqlite3

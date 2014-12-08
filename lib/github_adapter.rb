@@ -1,62 +1,56 @@
-require 'rom/support/axiom/adapter'
+require 'rom'
+require 'rom/adapter/memory/dataset'
 
-module Axiom
-  module Adapter
+require 'faraday'
+require 'json'
 
-    class Github
-      extend Adapter
+module ROM
 
-      uri_scheme :github
+  class GithubAdapter < Adapter
+    attr_reader :resources
 
-      attr_reader :source, :schema
+    class Resource
+      include Enumerable
 
-      def initialize(uri)
-        @source = "#{uri.host}#{uri.path}"
-        @schema = {}
-      end
+      attr_reader :connection, :path
 
-      def [](name)
-        @schema[name]
-      end
-
-      def []=(name, relation)
-        @schema[name] = Gateway.new(relation, self)
-      end
-
-      def read(relation)
-        names = relation.header.map(&:name).map(&:to_s)
-        json.map { |data| data.values_at(*names) }
-      end
-
-      def json
-        JSON.parse(open("https://api.github.com/#{source}").read)
-      end
-    end
-
-    class Gateway < Relation
-      include Relation::Proxy
-
-      attr_reader :adapter
-
-      def initialize(relation, adapter)
-        @relation = relation
-        @adapter  = adapter
+      def initialize(connection, path)
+        @connection = connection
+        @path = path
       end
 
       def each(&block)
-        tuples.each(&block)
-      end
-
-      private
-
-      def tuples
-        if materialized?
-          relation
-        else
-          Relation.new(header, adapter.read(relation))
-        end
+        JSON.parse(connection.get(path).body).each(&block)
       end
     end
 
+    class Dataset < Adapter::Memory::Dataset
+      include Charlatan.new(:data, kind: Array)
+
+      def self.build(*args)
+        new(Resource.new(*args))
+      end
+    end
+
+    def self.schemes
+      [:github]
+    end
+
+    def initialize(uri)
+      super
+      @connection = Faraday.new(url: "https://api.github.com/#{uri.host}#{uri.path}")
+      @resources = {}
+    end
+
+    def [](name)
+      @resources[name] ||= Dataset.build(connection, name.to_s)
+    end
+
+    def dataset?(name)
+      resources.key?(name)
+    end
+
+    Adapter.register(self)
   end
+
 end

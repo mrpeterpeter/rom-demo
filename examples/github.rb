@@ -1,38 +1,37 @@
-require 'open-uri'
-require 'json'
-
-require 'rom'
-
 require './lib/github_adapter'
+require 'anima'
 
 class Repo
-  attr_accessor :id, :name, :stars
+  include Anima.new(:id, :name, :stars)
 end
 
-rom = ROM::Environment.setup(github_rom_repos: 'github://orgs/rom-rb/repos') do
+rom = ROM.setup(github_rom_org: 'github://orgs/rom-rb') do
   schema do
     base_relation :repos do
-      repository :github_rom_repos
+      repository :github_rom_org
 
-      attribute :id,       Integer
-      attribute :name,     String
-      attribute :watchers, Integer
+      attribute :id
+      attribute :name
+      attribute :watchers
     end
   end
 
-  mapping do
-    relation :repos do
+  relation(:repos) do
+    def most_popular
+      restrict { |repo| repo['watchers'] > 10 }.order('watchers')
+    end
+  end
+
+  mappers do
+    define(:repos) do
       model Repo
-
-      map :id, :name
-      map :stars, from: :watchers
+      attribute :id, from: 'id'
+      attribute :name, from: 'name'
+      attribute :stars, from: 'watchers'
     end
   end
-
 end
 
-repos = rom[:repos].restrict { |r| r.watchers.gt(10) }.sort_by(:watchers)
-
-repos.each do |repo|
+rom.read(:repos).most_popular.each do |repo|
   puts "name #{repo.name} with #{repo.stars} stars"
 end
