@@ -9,8 +9,17 @@ GIT
       sequel (~> 4.17)
 
 GIT
+  remote: git://github.com/rom-rb/rom-yaml.git
+  revision: c67f9150a7e18194805a2ac1df77221865e8e87e
+  branch: master
+  specs:
+    rom-yaml (0.0.1)
+      moped
+      rom (~> 0.4, >= 0.4.0)
+
+GIT
   remote: git://github.com/rom-rb/rom.git
-  revision: 0bcec208967902985d1f44b729d40447fc63a8ad
+  revision: 651f2d194eb7be729333fe8e6b7f49bf55317593
   branch: master
   specs:
     rom (0.5.0)
@@ -33,10 +42,12 @@ GEM
       abstract_type (~> 0.0.7)
       adamantium (~> 0.1)
       equalizer (~> 0.0.8)
+    bson (2.3.0)
     charlatan (0.1.0)
     concord (0.1.5)
       adamantium (~> 0.2.0)
       equalizer (~> 0.0.9)
+    connection_pool (2.1.0)
     equalizer (0.0.9)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
@@ -44,7 +55,12 @@ GEM
     inflecto (0.0.2)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
+    moped (2.0.2)
+      bson (~> 2.2)
+      connection_pool (~> 2.0)
+      optionable (~> 0.2.0)
     multipart-post (2.0.0)
+    optionable (0.2.0)
     sequel (4.17.0)
     sqlite3 (1.3.10)
     thread_safe (0.3.4)
@@ -58,4 +74,5 @@ DEPENDENCIES
   faraday
   rom!
   rom-sql!
+  rom-yaml!
   sqlite3
