@@ -1,3 +1,26 @@
+GIT
+  remote: git://github.com/rom-rb/rom-sql.git
+  revision: 33c7ecd10d8d3cc076f7caf84b51b46632d34446
+  branch: master
+  specs:
+    rom-sql (0.3.1)
+      equalizer (~> 0.0, >= 0.0.9)
+      rom (~> 0.4, >= 0.4.0)
+      sequel (~> 4.17)
+
+GIT
+  remote: git://github.com/rom-rb/rom.git
+  revision: 0bcec208967902985d1f44b729d40447fc63a8ad
+  branch: master
+  specs:
+    rom (0.5.0)
+      addressable (~> 2.3)
+      charlatan (~> 0.1, >= 0.1)
+      concord (~> 0.1, >= 0.1.4)
+      equalizer (~> 0.0, >= 0.0.9)
+      inflecto (~> 0.0, >= 0.0.2)
+      transproc (~> 0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -22,19 +45,10 @@ GEM
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     multipart-post (2.0.0)
-    rom (0.4.0)
-      addressable (~> 2.3)
-      charlatan (~> 0.1, >= 0.1)
-      concord (~> 0.1, >= 0.1.4)
-      equalizer (~> 0.0, >= 0.0.9)
-      inflecto (~> 0.0, >= 0.0.2)
-    rom-sql (0.2.0)
-      equalizer (~> 0.0, >= 0.0.9)
-      rom (~> 0.4, >= 0.4.0)
-      sequel (~> 4.17)
     sequel (4.17.0)
     sqlite3 (1.3.10)
     thread_safe (0.3.4)
+    transproc (0.1.0)
 
 PLATFORMS
   ruby
@@ -42,6 +56,6 @@ PLATFORMS
 DEPENDENCIES
   anima
   faraday
-  rom
-  rom-sql
+  rom!
+  rom-sql!
   sqlite3
