@@ -27,8 +27,13 @@ module ROM
     class Dataset < Adapter::Memory::Dataset
       include Charlatan.new(:data, kind: Array)
 
-      def self.build(*args)
-        new(Resource.new(*args))
+      def self.build(*args, header)
+        new(Resource.new(*args), header)
+      end
+
+      def initialize(data, header)
+        super
+        @header = header
       end
     end
 
@@ -36,21 +41,23 @@ module ROM
       [:github]
     end
 
-    def initialize(uri)
+    def initialize(uri, options = {})
       super
       @connection = Faraday.new(url: "https://api.github.com/#{uri.host}#{uri.path}")
       @resources = {}
     end
 
     def [](name)
-      @resources[name] ||= Dataset.build(connection, name.to_s)
+      resources.fetch(name)
+    end
+
+    def dataset(name, header)
+      resources[name] = Dataset.build(connection, name.to_s, header)
     end
 
     def dataset?(name)
       resources.key?(name)
     end
-
-    Adapter.register(self)
   end
 
 end

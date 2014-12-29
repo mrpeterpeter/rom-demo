@@ -10,15 +10,18 @@ rom = ROM.setup(github_rom_org: 'github://orgs/rom-rb') do
     base_relation :repos do
       repository :github_rom_org
 
-      attribute :id
-      attribute :name
-      attribute :watchers
+      attribute 'id'
+      attribute 'name'
+      attribute 'watchers'
     end
   end
 
   relation(:repos) do
     def most_popular
-      restrict { |repo| repo['watchers'] > 10 }.order('watchers')
+      project(*header)
+        .restrict { |repo| repo['watchers'] > 10 }
+        .order('watchers')
+        .reverse
     end
   end
 
