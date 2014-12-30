@@ -25,11 +25,11 @@ ROM.mappers do
     attribute :id
     attribute :name
 
-    wrap :slot do
+    wrap :slot, prefix: :slots do
       model Application::Slot
 
-      attribute :id, from: :slots_id
-      attribute :name, from: :slots_name
+      attribute :id
+      attribute :name
     end
   end
 end

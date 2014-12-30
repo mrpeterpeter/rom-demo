@@ -26,10 +26,10 @@ rom = ROM.setup(github_rom_org: 'github://orgs/rom-rb') do
   end
 
   mappers do
-    define(:repos) do
+    define(:repos, symbolize_keys: true) do
       model Repo
-      attribute :id, from: 'id'
-      attribute :name, from: 'name'
+      attribute :id
+      attribute :name
       attribute :stars, from: 'watchers'
     end
   end

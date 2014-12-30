@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git://github.com/rom-rb/rom.git
-  revision: 651f2d194eb7be729333fe8e6b7f49bf55317593
+  revision: ccff3801da16050da45264827f56c09c5e6b8616
   branch: master
   specs:
     rom (0.5.0)

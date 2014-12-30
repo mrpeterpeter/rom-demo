@@ -25,11 +25,11 @@ setup.mappers do
 
     attribute :sha
 
-    embedded :details, from: 'commit', type: Hash do
+    embedded :details, from: 'commit', type: :hash do
       model name: 'Details'
       attribute :message
 
-      embedded :author, type: Hash do
+      embedded :author, type: :hash do
         model name: 'DetailsAuthor'
         attribute :name
         attribute :email
@@ -37,7 +37,7 @@ setup.mappers do
       end
     end
 
-    embedded :author, type: Hash do
+    embedded :author, type: :hash do
       model name: 'CommitAuthor'
       attribute :login
     end
