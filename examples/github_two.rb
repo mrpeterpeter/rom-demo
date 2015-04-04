@@ -1,53 +1,49 @@
-require 'rom-yaml'
-require './lib/github_adapter'
+require 'rom'
+require 'byebug'
 
-setup = ROM.setup(github: 'github://repos/rom-rb/rom')
+$LOAD_PATH.unshift(Pathname(__FILE__).join('../../lib').realpath)
 
-setup.schema do
-  base_relation :commits do
-    repository :github
+rom = ROM.setup(:github, 'repos/rom-rb/rom') do
+  relation(:commits) do
+    dataset :commits
 
-    attribute 'sha'
-    attribute 'commit'
+    def recent
+      take(10)
+    end
   end
-end
 
-setup.relation(:commits) do
-  def recent
-    project('sha', 'commit', 'author').take(10)
-  end
-end
+  mappers do
+    define(:commits) do
+      model name: 'Commit'
 
-setup.mappers do
+      register_as :entity
 
-  define :commits, symbolize_keys: true do
-    model name: 'Commit'
+      attribute :sha
 
-    attribute :sha
+      embedded :details, from: :commit, type: :hash do
+        model name: 'Details'
 
-    embedded :details, from: 'commit', type: :hash do
-      model name: 'Details'
-      attribute :message
+        attribute :message
+
+        embedded :author, type: :hash do
+          model name: 'DetailsAuthor'
+
+          attribute :name
+          attribute :email
+          attribute :timestamp, from: :date, type: :datetime
+        end
+      end
 
       embedded :author, type: :hash do
-        model name: 'DetailsAuthor'
-        attribute :name
-        attribute :email
-        attribute :timestamp, from: 'date', type: :datetime
+        model name: 'CommitAuthor'
+
+        attribute :login
       end
     end
-
-    embedded :author, type: :hash do
-      model name: 'CommitAuthor'
-      attribute :login
-    end
   end
-
 end
 
-rom = setup.finalize
-
-commits = rom.read(:commits).recent
+commits = rom.relation(:commits).as(:entity).recent
 
 commits.each do |commit|
   puts "sha: #{commit.sha}"

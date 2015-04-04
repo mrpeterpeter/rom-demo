@@ -1,40 +1,31 @@
-require './lib/github_adapter'
-require 'anima'
+require 'rom'
 
-class Repo
-  include Anima.new(:id, :name, :stars)
-end
+$LOAD_PATH.unshift(Pathname(__FILE__).join('../../lib').realpath)
 
-rom = ROM.setup(github_rom_org: 'github://orgs/rom-rb') do
-  schema do
-    base_relation :repos do
-      repository :github_rom_org
-
-      attribute 'id'
-      attribute 'name'
-      attribute 'watchers'
-    end
-  end
-
+rom = ROM.setup(:github, 'orgs/rom-rb') do
   relation(:repos) do
+    dataset :repos
+
     def most_popular
-      project(*header)
-        .restrict { |repo| repo['watchers'] > 10 }
-        .order('watchers')
+      select { |repo| repo[:watchers] > 10 }
+        .sort_by { |repo| repo[:watchers] }
         .reverse
     end
   end
 
   mappers do
-    define(:repos, symbolize_keys: true) do
-      model Repo
+    define(:repos) do
+      model name: 'Repo'
+
+      register_as :entity
+
       attribute :id
       attribute :name
-      attribute :stars, from: 'watchers'
+      attribute :stars, from: :watchers
     end
   end
 end
 
-rom.read(:repos).most_popular.each do |repo|
+rom.relation(:repos).as(:entity).most_popular.each do |repo|
   puts "name #{repo.name} with #{repo.stars} stars"
 end

@@ -1,8 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rom', github: 'rom-rb/rom', branch: 'master'
-gem 'rom-sql', github: 'rom-rb/rom-sql', branch: 'master'
-gem 'rom-yaml', github: 'rom-rb/rom-yaml', branch: 'master'
+gem 'rom'
+gem 'rom-sql'
+gem 'rom-yaml'
+gem 'transproc', github: 'solnic/transproc', branch: 'master'
+gem 'inflecto'
+gem 'byebug'
 
 gem 'faraday'
 gem 'sqlite3'
