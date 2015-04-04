@@ -22,6 +22,8 @@ ROM.mappers do
   define :applications do
     model Application
 
+    register_as :entity
+
     attribute :id
     attribute :name
 
@@ -36,5 +38,5 @@ end
 
 rom = ROM.finalize.env
 
-puts rom.read(:applications).with_slot.to_a.inspect
+puts rom.relation(:applications).as(:entity).with_slot.to_a.inspect
 # [#<Application id=1 name="Secondary App" slot=#<Application::Slot id=2 name="Secondary">>, #<Application id=2 name="Primary App" slot=#<Application::Slot id=1 name="Primary">>]

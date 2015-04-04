@@ -1,7 +1,7 @@
 require 'rom-sql'
 
 ROOT = Pathname(__FILE__).join("../..")
-setup = ROM.setup("sqlite://#{ROOT}/db/sqlite.db")
+setup = ROM.setup(:sql, "sqlite://#{ROOT}/db/sqlite.db")
 
 conn = setup.default.connection
 
